@@ -66,7 +66,7 @@ const googleSign = async ( req, res = response ) => {
             //Solo Si el usuario existe en nuestra DB
             usuario = usuarioDB;
             usuario.google = true;
-            usuario.password = "---";
+            // usuario.password = "---";
         }
         
         console.log({ usuario : usuario });
@@ -89,7 +89,20 @@ const googleSign = async ( req, res = response ) => {
     }
 }
 
+const renewToken = async (req, res = reponse) => {
+
+    const u_id = req.u_id;
+
+    const token = await generarJWT( u_id );
+
+    res.json({
+        ok: true,
+        token
+    });
+}
+
 module.exports = {
     login,
     googleSign,
+    renewToken,
 };

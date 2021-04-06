@@ -3,9 +3,10 @@
  */
 
  const { Router }  = require('express');
- const { login, googleSign } = require('../controllers/auth');
+ const { login, googleSign, renewToken } = require('../controllers/auth');
  const { check }  = require('express-validator');
-const { validarCampos } = require('../middlewares/validar-campos');
+ const { validarCampos } = require('../middlewares/validar-campos');
+ const { validarJWT } = require('../middlewares/validar-jwk');
 
 
 const router = Router();
@@ -27,5 +28,11 @@ router.post('/google',
     googleSign
 )
 
+router.post('/renew',
+    [
+        validarJWT
+    ],
+    renewToken
+)
 
 module.exports = router;
